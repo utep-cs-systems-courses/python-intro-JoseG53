@@ -13,10 +13,10 @@ ftowrite = sys.argv[2] #File to be written to
 
 with open(ftoread, 'r') as f:
     for line in f:
-        line = line.lower().strip()
-        line = line.replace('-', " ")
-        line = line.replace("'", " ")
-        word = re.sub(r'[^\w\s]', '', line).split()
+        line = line.lower().strip() #lowercase and removes whitespace
+        line = line.replace('-', " ") #removes - and sperates the words
+        line = line.replace("'", " ") #removes the ' and sparates the two
+        word = re.sub(r'[^\w\s]', '', line).split() #removes the rest of the puctutation and splits the str into a list of words
         for i in word:
             if (CountedWords.get(i) is None):
                 CountedWords[i] = 1
