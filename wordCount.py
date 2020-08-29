@@ -3,7 +3,7 @@
 #Task: Count how many times a word appears in a file and write IN ALPHABETICAL ORDER the word and count e.g: Hello 3
 #Will take in arguments (name of file to be read) and (name of file to be written to)
 
-import sys
+import sys, re
 
 #Variable Declaration
 CountedWords = {} #Dictionary for words
@@ -13,17 +13,15 @@ ftowrite = sys.argv[2] #File to be written to
 
 with open(ftoread, 'r') as f:
     for line in f:
-        words =  line.split()
-        for i in words:
-            i = i.replace('.', '') #used to strip punctuation from words
-            i = i.replace(',', '')
-            i = i.replace(':', '')
-            i = i.replace(';', '')
-            i = i.replace('"', '')
+        line = line.lower().strip()
+        line = line.replace('-', " ")
+        line = line.replace("'", " ")
+        word = re.sub(r'[^\w\s]', '', line).split()
+        for i in word:
             if (CountedWords.get(i) is None):
-                CountedWords[i] = 1 #adds word to dictionary
-            elif (CountedWords.get(i)):
-                CountedWords[i] +=1 #updates word count
+                CountedWords[i] = 1
+            else:
+                CountedWords[i] += 1
 
 sortedWords = sorted(CountedWords)
 
